@@ -1,0 +1,34 @@
+class stack:
+    def __init__(self):
+        self.items = []
+    def isEmpty(self):
+         return self.items==[]
+    def push(self, item):
+        self.items.append(item)
+    def pop(self):
+        return self.items.pop()
+    def peek(self):
+        return self.items[len(self.items) - 1]
+    def size(self):
+        return len(self.items)
+    def display(self):
+        return (self.items)
+def check_brackets(statement):
+    s = stack()
+    for token in statement:
+         if token in "{[(":
+             s.push(token)
+         elif token in "}])":
+             if s.isEmpty():
+                 return False
+             else:
+                left = s.pop()
+                if (token == "}" and left != "{") or \
+                     (token == "]" and left != "[") or \
+                     (token == ")" and left != "("):
+                     return False
+    return s.isEmpty()
+sl=("A+{B*(C-D}/E","B*[E/F]-)(X+Y]")
+for s in sl:
+      m = check_brackets(s)
+      print("{}: {}".format(s, m))
